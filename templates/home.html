@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    <div class="row py-5 mt-5">
+        {% for flashcard_set in sets %}
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                <div class="card mb-3" style="height:200px;">
+                    <div class="card-body">
+                        <h5 class="card-text d-flex justify-content-center align-items-center">{{ flashcard_set.category }}</h5>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary btn-lg btn-block" style="background-color: #3b5998" href="{% url 'learn' flashcard_set.id %}" role="button">
+                            <i class="fab fa-facebook-f me-2"></i>Learn
+                        </a>
+                        <a class="btn btn-primary btn-lg btn-block mt-3" style="background-color: #3b5998" href="{% url 'flashcard_list' flashcard_set.id %}" role="button">
+                            <i class="fab fa-facebook-f me-2"></i>Edit
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <section class="py-5 mt-5 my-5 homepage-hero-module">
+        <div class="container px-5">
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-6">
+                    <div class="text-center my-5">
+                        <h1 class="display-5 fw-bolder mb-2">Learn Chinese</h1>
+                        <p class="lead -50 mb-4">Learning a new language has never been easy, but with clearn that experience can change. All you have to do is start studying now with our flashcards. </p>
+                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                            <a class="btn btn-primary btn-lg px-4 me-sm-3" href="{% url 'login' %}" style="background-color: #55DB16;">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endif %}
+
+{% endblock content %}

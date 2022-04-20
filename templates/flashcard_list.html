@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block title %}Learn{% endblock title %}
+
+{% block content %}
+
+<div class="row justify-content-center py-5 mt-5">
+    <div class="col-12">
+        <div class="mb-3 d-flex align-items-start justify-content-between">
+            <h1>{{ set.category }}</h1>
+
+        </div>
+
+        <div class="row py-5 mt-5">
+            {% for flashcard in set.flashcard_set.all %}
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <div class="card mb-3" style="height:200px;">
+                        <div class="card-body">
+                            <h2 class="card-text d-flex justify-content-center align-items-center">{{ flashcard.front }}</h2>
+                            <h6 class="card-text d-flex justify-content-center align-items-center">{{ flashcard.back }}</h6>
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-primary btn-lg btn-block" style="background-color: #3b5998" href="{% url 'set_delete' flashcard.id %}" role="button">
+                                <i class="fab fa-facebook-f me-2"></i>Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            <h2 class="mb-3" style="color:#333;">Add flashcard</h2>
+            <div class="mb-3">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <label for="front" class="form-label">Front</label>
+                        <textarea class="form-control" id="front" name="front" rows="3" placeholder="Front"></textarea>
+                    </div>
+                    <div class="col-12">
+                        <label for="back" class="form-label">Back</label>
+                        <textarea class="form-control" id="back" name="back" rows="3" placeholder="Back"></textarea>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-lg float-end text-light" style="background-color: #3b5998">Add</button>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
