@@ -4,9 +4,6 @@ import django_heroku
 import psycopg2
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-from django.contrib import staticfiles
-from django.template.context_processors import media
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
