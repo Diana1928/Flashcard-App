@@ -22,9 +22,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             {% if user.is_authenticated %}
                 <ul class="navbar-nav ms-auto align-items-center">
+                {% if user.is_superuser %}
                     <li class="nav-item">
                         <a class="nav-link mx-2" href="{% url 'set_create' %}">New</a>
                     </li>
+                    {% endif %}
                     <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">

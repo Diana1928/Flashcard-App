@@ -13,9 +13,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'django-insecure-tszf5sik0v4^l1mtt-xrk6-8cn$qs%ut4q#+a#gu!4bc!zn4%7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['.herokuapp.com']
+ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 
 # Application definition
 
@@ -72,6 +72,20 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.social_auth.associate_by_email',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
+
+
 WSGI_APPLICATION = 'flashcardwebapp.wsgi.application'
 AUTH_USER_MODEL = 'users.CustomUser'
 
@@ -113,11 +127,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'America/Chicago'
-
 USE_I18N = True
-
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
@@ -134,11 +145,24 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 psycopg2 == '2.9.3'
 
+
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = '/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_FACEBOOK_KEY = '403796041582483'
 SOCIAL_AUTH_FACEBOOK_SECRET = 'b301efb2f145acf39fee08a4a0f52e9f'
 
-SOCIAL_AUTH_GOOGLE_0AUTH2_KEY = '1061654831496-2iug46air42hl1cuasqecf9iti7rqpnc.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1061654831496-2iug46air42hl1cuasqecf9iti7rqpnc.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_0AUTH2_SECRET = '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'
+
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'ig2970681@gmail.com'
+EMAIL_HOST_PASSWORD = 'iiubudfrrhwerwil'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
